@@ -5,18 +5,18 @@
 
 #[derive(Debug)]
 struct Package {
-    from: String,
-    to: String,
-    weight: f32
+    sender_country: String,
+    recipient_country: String,
+    weight_in_grams: i32,
 }
 
 impl Package {
-    fn new(from: String, to: String, weight: f32) -> Package {
-        if weight <= 0.0 {
+    fn new(sender_country: String, recipient_country: String, weight_in_grams: i32) -> Package {
+        if weight_in_grams <= 0 {
             // Something goes here...
             panic!("Weight is abnormal.");
         } else {
-            return Package {from, to, weight};
+            return Package {sender_country, recipient_country, weight_in_grams};
         }
     }
 
@@ -25,9 +25,14 @@ impl Package {
         self.from != String::from("Spain") || self.to != String::from("Spain")
     }
 
+<<<<<<< HEAD
     fn get_fees(&self, cost_per_kg: f32) -> f32 {
         // Something goes here...
         cost_per_kg * self.weight
+=======
+    fn get_fees(&self, cents_per_kg: i32) -> ??? {
+        // Something goes here... (beware of grams to kg conversion)
+>>>>>>> upstream/master
     }
 }
 
@@ -38,31 +43,35 @@ mod tests {
     #[test]
     #[should_panic]
     fn fail_creating_weightless_package() {
-        let country_from = String::from("Spain");
-        let country_to = String::from("Austria");
+        let sender_country = String::from("Spain");
+        let recipient_country = String::from("Austria");
 
-        Package::new(country_from, country_to, -2.21);
+        Package::new(sender_country, recipient_country, -2210);
     }
 
     #[test]
     fn create_international_package() {
-        let country_from = String::from("Spain");
-        let country_to = String::from("Russia");
+        let sender_country = String::from("Spain");
+        let recipient_country = String::from("Russia");
         
-        let package = Package::new(country_from, country_to, 1.2);
+        let package = Package::new(sender_country, recipient_country, 1200);
 
         assert!(package.is_international());
     }
 
     #[test]
     fn calculate_transport_fees() {
-        let country_from = String::from("Spain");
-        let country_to = String::from("Spain");
+        let sender_country = String::from("Spain");
+        let recipient_country = String::from("Spain");
 
+<<<<<<< HEAD
         let country_fee = 8.0;
+=======
+        let cents_per_kg = ???;
+>>>>>>> upstream/master
         
-        let package = Package::new(country_from, country_to, 22.0);
+        let package = Package::new(sender_country, recipient_country, 1500);
         
-        assert_eq!(package.get_fees(country_fee), 176.0);
+        assert_eq!(package.get_fees(cents_per_kg), 4500);
     }
 }
