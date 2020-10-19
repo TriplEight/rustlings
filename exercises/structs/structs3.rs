@@ -16,23 +16,22 @@ impl Package {
             // Something goes here...
             panic!("Weight is abnormal.");
         } else {
-            return Package {sender_country, recipient_country, weight_in_grams};
+            return Package {
+                sender_country,
+                recipient_country,
+                weight_in_grams
+            };
         }
     }
 
     fn is_international(&self) -> bool {
         // Something goes here...
-        self.from != String::from("Spain") || self.to != String::from("Spain")
+        self.recipient_country != String::from("Spain") || self.sender_country != String::from("Spain")
     }
 
-<<<<<<< HEAD
-    fn get_fees(&self, cost_per_kg: f32) -> f32 {
+    fn get_fees(&self, cents_per_gram: i32) -> i32 {
         // Something goes here...
-        cost_per_kg * self.weight
-=======
-    fn get_fees(&self, cents_per_kg: i32) -> ??? {
-        // Something goes here... (beware of grams to kg conversion)
->>>>>>> upstream/master
+        cents_per_gram * self.weight_in_grams
     }
 }
 
@@ -64,14 +63,10 @@ mod tests {
         let sender_country = String::from("Spain");
         let recipient_country = String::from("Spain");
 
-<<<<<<< HEAD
-        let country_fee = 8.0;
-=======
-        let cents_per_kg = ???;
->>>>>>> upstream/master
+        let cents_per_gram = 3;
         
         let package = Package::new(sender_country, recipient_country, 1500);
         
-        assert_eq!(package.get_fees(cents_per_kg), 4500);
+        assert_eq!(package.get_fees(cents_per_gram), 4500);
     }
 }
