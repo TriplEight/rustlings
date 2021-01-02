@@ -1,8 +1,6 @@
 // iterators4.rs
 
-// I AM NOT DONE
-
-pub fn factorial(num: u64) -> u64 {
+pub fn factorial(num: u128) -> u128 {
     // Complete this function to return the factorial of num
     // Do not use:
     // - return
@@ -12,6 +10,11 @@ pub fn factorial(num: u64) -> u64 {
     // For an extra challenge, don't use:
     // - recursion
     // Execute `rustlings hint iterators4` for hints.
+    // println!("{}", );
+    match num {
+        0 => 1,
+        _ => factorial(num -1) * num,
+    }
 }
 
 #[cfg(test)]
@@ -19,9 +22,15 @@ mod tests {
     use super::*;
 
     #[test]
+    fn factorial_of_0() {
+        assert_eq!(1, factorial(0));
+    }
+
+    #[test]
     fn factorial_of_1() {
         assert_eq!(1, factorial(1));
     }
+
     #[test]
     fn factorial_of_2() {
         assert_eq!(2, factorial(2));
@@ -30,5 +39,10 @@ mod tests {
     #[test]
     fn factorial_of_4() {
         assert_eq!(24, factorial(4));
+    }
+
+    #[test]
+    fn factorial_of_21() {
+        assert_eq!(51090942171709440000, factorial(21));
     }
 }
